@@ -12,17 +12,13 @@
  * to sign your transactions before they're sent to a remote public node. Infura accounts
  * are available for free at: infura.io/register.
  *
- * You'll also need a mnemonic - the twelve word phrase the wallet uses to generate
- * public/private key pairs. If you're publishing your code to GitHub make sure you load this
- * phrase from a file you've .gitignored so it doesn't accidentally become public.
- *
  */
 
 require("dotenv").config();
 
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 
-const { ETHERSCAN_API_KEY, INFURA_ID, MNEMONIC } = process.env;
+const { ETHERSCAN_API_KEY, INFURA_PROJECT_ID, PRIVATEKEY } = process.env;
 
 module.exports = {
   /**
@@ -65,10 +61,10 @@ module.exports = {
     //
     // Useful for deploying to a public network.
     // Note: It's important to wrap the provider as a function to ensure truffle uses a new provider every time.
-    // ropsten: {
-    //   provider: () => new HDWalletProvider(mnemonic, `https://ropsten.infura.io/v3/YOUR-PROJECT-ID`),
-    //   network_id: 3,       // Ropsten's id
-    //   gas: 5500000,        // Ropsten has a lower block limit than mainnet
+    // goerli: {
+    //   provider: () => new HDWalletProvider(PRIVATEKEY, `https://goerli.infura.io/v3/YOUR-PROJECT-ID`),
+    //   network_id: 3,       // Goerli's id
+    //   gas: 5500000,        // Goerli has a lower block limit than mainnet
     //   confirmations: 2,    // # of confirmations to wait between deployments. (default: 0)
     //   timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
     //   skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
@@ -76,31 +72,23 @@ module.exports = {
     mainnet: {
       provider: () =>
         new HDWalletProvider(
-          `${MNEMONIC}`,
-          `https://mainnet.infura.io/v3/${INFURA_ID}`
+          `${PRIVATEKEY}`,
+          `https://mainnet.infura.io/v3/${INFURA_PROJECT_ID}`
         ),
       network_id: 1,
     },
-    ropsten: {
+    goerli: {
       provider: () =>
         new HDWalletProvider(
-          `${MNEMONIC}`,
-          `https://ropsten.infura.io/v3/${INFURA_ID}`
+          `${PRIVATEKEY}`,
+          `https://goerli.infura.io/v3/${INFURA_PROJECT_ID}`
         ),
-      network_id: 3,
-    },
-    rinkeby: {
-      provider: () =>
-        new HDWalletProvider(
-          `${MNEMONIC}`,
-          `https://rinkeby.infura.io/v3/${INFURA_ID}`
-        ),
-      network_id: 4,
+      network_id: 5,
     },
     //
     // Useful for private networks
     // private: {
-    //   provider: () => new HDWalletProvider(mnemonic, `https://network.io`),
+    //   provider: () => new HDWalletProvider(PRIVATEKEY, `https://network.io`),
     //   network_id: 2111,   // This network is yours, in the cloud.
     //   production: true    // Treats this network as if it was a public net. (default: false)
     // }
