@@ -22,7 +22,7 @@ truffle migrate -f X --to X [--network `Network`] [--reset]
 
 ## Verify command
 
-truffle run verify `Contract Name` [--network rinkeby]
+truffle run verify `Contract Name` [--network `Network`]
 
 ## Other command
 
